@@ -37,6 +37,7 @@ const MealsAvailable = (props) =>{
                 <ul>
                 {MealsItem}
             </ul>
+            
             </Card>
         </section>
     );
