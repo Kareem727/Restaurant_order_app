@@ -7,7 +7,7 @@ import Meals from './components/Meals/Meals';
 import CartProvider from './components/store/CartProvider';
 
 function App(props) {
-  const [showCart, setShowCart] = useState(false);
+  const [ShowCart, setShowCart] = useState(false);
   const ShowHandler = () =>{
     setShowCart(true);
   }
@@ -18,13 +18,14 @@ function App(props) {
  
 
   return (
+    
+    <CartProvider>
      
-   <CartProvider>
-      {showCart && <Cart onClose={HideHandler}/> }
+      {ShowCart && <Cart onClose={HideHandler}/> }
      <Headerr onConfirm={ShowHandler}/>
      <Meals/>
-   </CartProvider>
-
+     
+     </CartProvider>
   );
 }
 
