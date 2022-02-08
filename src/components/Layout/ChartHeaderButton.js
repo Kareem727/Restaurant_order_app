@@ -8,6 +8,7 @@ const ChartButton =(props) =>{
     const numberOfCartItem = ctx.items.reduce((curNumber, item)=>{
         return curNumber + item.amount;
     } , 0);
+    
 return(
     <button className={stylesss.button} onClick={props.onConfirm}> 
         <span className={stylesss.icon}><i className="fas fa-shopping-cart"></i></span>
