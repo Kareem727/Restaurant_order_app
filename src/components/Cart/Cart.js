@@ -16,6 +16,18 @@ const Cart = (props) =>{
     const cartItemAddHandler =(item) =>{
         ctx.addItem({...item, amount:1});
     }
+
+const submitOrderHandler = (userdata) =>{
+  fetch('https://restorant-sushi-default-rtdb.firebaseio.com/orders.json',{
+  method: 'POST',
+  body: JSON.stringify({
+  user: userdata,
+  orderedItems: ctx.items
+  })
+  
+  });
+}
+
     const CartItem = (
    
      <ul>
@@ -31,8 +43,13 @@ const Cart = (props) =>{
     ))}
      </ul>
     );
+
    const onCheackHandler = () =>{
       setonShowAddress(true);
+
+      submitOrderHandler();
+      
+
    }
     return(
     <Modal onClose={props.onClose}>
@@ -49,7 +66,7 @@ const Cart = (props) =>{
      
      { !ShowAddress && <div className={stylesss.actions}>
          <button className={stylesss['button--alt']} onClick={props.onClose} >Close</button>
-         { hasItem && <button className={stylesss.button} onClick={onCheackHandler}>Order</button>}
+         { hasItem && <button className={stylesss.button} onClick={onCheackHandler}  >Order</button>}
 
      </div>}
      </div>
