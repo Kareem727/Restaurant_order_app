@@ -31,12 +31,20 @@ import { useEffect, useState } from 'react';
 //   ];
 const MealsAvailable = (props) =>{
  const [meals ,setMeals] =useState([]);
+ const [loading, setIsloading] = useState(true);
+ const [errorr ,setError] = useState('');
  useEffect(()=>{
   const fetchMeals = async() =>{
-    const response = await fetch('https://restorant-sushi-default-rtdb.firebaseio.com/meals.json');
+    const response = await fetch('https://restrant-sushi-default-rtdb.firebaseio.com/meals.json');
+   
+    if(!response.ok){
+      throw new Error('Something went wrongg')
+       
+    }
+
     const responseData =  await response.json();
       
-    let mealsData =[];
+    let mealsData = [];
     for(const key in responseData){
       mealsData.push({
         id: key,
@@ -47,12 +55,30 @@ const MealsAvailable = (props) =>{
 
     }
     setMeals(mealsData);
-  }
+    setIsloading(false);
+  };
 
-  fetchMeals();
+
+    fetchMeals().catch((errorr) =>{
+      setIsloading(false);
+      setError(errorr.message);
+    });
+ 
  },[]);
   
-
+ if(loading){
+   return(
+     <p className={stylesss.mealsLoading} > Loading ....</p>
+   );
+ }
+ 
+if(errorr){
+  return(
+    <section className={stylesss.mealsError}>
+      <p>{errorr}</p>
+    </section>
+  );
+}
  
    const MealsItem = meals.map(meal => 
    <MealItem
