@@ -1,10 +1,12 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Modal from '../UI/Modal';
 import stylesss from './Cart.module.css'
 
 import TheCreatedContext from '../store/cart-context';
 import CartItemmm from './CartItem';
+import CardAddress from './AddressInfo';
 const Cart = (props) =>{
+    const [ShowAddress ,setonShowAddress] = useState(false);
     const ctx = useContext(TheCreatedContext);
     const TotalAmount = `$${ctx.TotalAmount.toFixed(2)}`
     const hasItem = ctx.items.length > 0;
@@ -29,7 +31,9 @@ const Cart = (props) =>{
     ))}
      </ul>
     );
- 
+   const onCheackHandler = () =>{
+      setonShowAddress(true);
+   }
     return(
     <Modal onClose={props.onClose}>
      <div className={stylesss['cart-items']}>
@@ -38,11 +42,16 @@ const Cart = (props) =>{
          <span>Total Amount</span>
          <span>{TotalAmount}</span>
      </div>
-     <div className={stylesss.actions}>
-         <button className={stylesss['button--alt']} onClick={props.onClose} >Close</button>
-         { hasItem && <button className={stylesss.button} >Order</button>}
 
-     </div>
+
+     { ShowAddress && <CardAddress onCancel={props.onClose}/>}
+
+     
+     { !ShowAddress && <div className={stylesss.actions}>
+         <button className={stylesss['button--alt']} onClick={props.onClose} >Close</button>
+         { hasItem && <button className={stylesss.button} onClick={onCheackHandler}>Order</button>}
+
+     </div>}
      </div>
      </Modal>
     );

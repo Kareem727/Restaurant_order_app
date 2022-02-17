@@ -35,7 +35,7 @@ const MealsAvailable = (props) =>{
  const [errorr ,setError] = useState('');
  useEffect(()=>{
   const fetchMeals = async() =>{
-    const response = await fetch('https://restrant-sushi-default-rtdb.firebaseio.com/meals.json');
+    const response = await fetch('https://restorant-sushi-default-rtdb.firebaseio.com/meals.json');
    
     if(!response.ok){
       throw new Error('Something went wrongg')
